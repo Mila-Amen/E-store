@@ -3,7 +3,7 @@ import { MyContext } from "../context/context";
 
 export default function Home() {
   //consuming/using context value
-  const { products, setCarts, carts } = useContext(MyContext);
+  const { products, setCarts, carts,user } = useContext(MyContext);
   const addItemToCart = (item) => {
        /*  const copyCart = [...carts]
     copyCart.push(item)
@@ -33,6 +33,8 @@ export default function Home() {
                 <h1>${item.price}</h1>
 
                 <button onClick={() => addItemToCart(item)}>add to cart</button>
+                {user && user?.role==="admin" && <button>edit product</button>} 
+             {user && user?.role==="admin" &&  <button>delete</button>}
               </div>
             );
           })

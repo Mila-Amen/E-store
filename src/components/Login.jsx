@@ -27,6 +27,7 @@ export default function Login() {
         if (result.success) {
           //user successfully logged in!
           console.log(result);
+          //storing user in the context
           setUser(result.data);
           navigate("/profile");
         }
@@ -34,7 +35,8 @@ export default function Login() {
   };
   return (
     <>
-      {user ? (
+   
+      {   user ? (
         <Navigate to="/profile" />
       ) : (
         <div>
@@ -45,7 +47,7 @@ export default function Login() {
             </label>
             <br />
             <label>
-              Password: <input type="password" name="password" />
+              Passowrd: <input type="password" name="password" />
             </label>
             <br />
             <button>login</button>

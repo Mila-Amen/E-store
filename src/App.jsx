@@ -1,11 +1,9 @@
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink, Navigate } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Cart from "./components/Cart";
-
-import "./App.css";
 import { useContext } from "react";
 import { MyContext } from "./context/context";
 
@@ -24,6 +22,7 @@ function App() {
             </li>
           ) : (
             <>
+              {" "}
               <li>
                 <NavLink to="/login">Login</NavLink>
               </li>
@@ -33,7 +32,7 @@ function App() {
             </>
           )}
 
-          <li style={{ float: "right" }}>
+          <li>
             <NavLink to="/cart">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/3225/3225209.png"
@@ -47,7 +46,10 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+       {/*    <Route>
+            <Route index element={<Home />} />
+          </Route> */}
+          <Route path="/login" element={<Login /> } />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/cart" element={<Cart />} />
@@ -58,3 +60,13 @@ function App() {
 }
 
 export default App;
+
+
+
+
+/* function ProtectRoute({children}){
+  const {user}= useContext(MyContext)
+  return (
+    <>{user ? <Navigate to="/profile"/>: children }</>
+  )
+} */

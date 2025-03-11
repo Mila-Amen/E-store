@@ -17,6 +17,14 @@ export default function Provider({ children }) {
             console.log(result.message)
         }
     })
+
+    const querydata = new URLSearchParams(window.location.search)
+    if(querydata.get("success")){
+      alert("order placed successfully!")
+    }
+    if(querydata.get("canceled")){
+      alert("order canceled!")
+    }
   },[])
 
 

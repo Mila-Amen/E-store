@@ -1,12 +1,28 @@
 import React, { useContext } from "react";
 import { MyContext } from "../context/context";
 import { useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
 
 export default function Cart() {
   const { carts, user, setCarts } = useContext(MyContext);
- const navigate= useNavigate()
-  const placeOrder = () => {
-    if(!user) {
+  const navigate = useNavigate();
+
+  const placeOrder = async () => {
+    const stripe = await loadStripe(
+      "pk_test_51R1NyUEyOc7flfzUrH0UE7EJ6XgurPkhh6IAR6Jooz9TnoPCmTALbNd1Gsk0nkK26c075Ia9Yh6LHrIeu47DSZTo00hOHhhf68"
+    );
+
+    fetch("http://localhost:5000/create-checkout-session", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({carts}),
+    }).then(res=>res.json())
+    .then(result=> {
+      stripe.redirectToCheckout({sessionId: result.id})
+    })
+
+
+    /* if(!user) {
        return navigate("/login")
     }
     const payload = {
@@ -32,7 +48,7 @@ export default function Cart() {
       }else{
         console.log(result.message)
       }
-    })
+    }) */
   };
   return (
     <div>
@@ -41,8 +57,8 @@ export default function Cart() {
         {carts.map((product) => {
           return (
             <div key={product._id} style={{ display: "flex", margin: "10px" }}>
-            {/*   <img src={product.image[0]} width={100} alt="" /> */}
-              <h2>{product.name||product.title}</h2>
+              {/*   <img src={product.image[0]} width={100} alt="" /> */}
+              <h2>{product.name || product.title}</h2>
               <h2>${product.price}</h2>
               <h3>
                 quantity: <button>+</button>

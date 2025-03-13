@@ -19,8 +19,8 @@ export default function Login() {
     })
       .then((res) => {
         //extract token out from header
-        const token = res.headers.get("token");
-        localStorage.setItem("token", token);
+/*         const token = res.headers.get("token");
+        localStorage.setItem("token", token); */
         return res.json();
       })
       .then((result) => {
@@ -47,7 +47,7 @@ export default function Login() {
             </label>
             <br />
             <label>
-              Passowrd: <input type="password" name="password" />
+              Password: <input type="password" name="password" />
             </label>
             <br />
             <button>login</button>

@@ -7,16 +7,21 @@ export default function Register() {
       const {user}= useContext(MyContext)
   const registerUser= (e)=>{
     e.preventDefault()
-    const user= {
+  /*   const user= {
       first_name: e.target.first_name.value,
       last_name: e.target.last_name.value,
       email: e.target.email.value,
       password:e.target.password.value
-    }
+    } */
+
+    //FormData 
+    const formdata = new FormData(e.target) // multipart/form-data
+
+
     fetch("http://localhost:5000/users", {
       method:"POST",
-      body: JSON.stringify(user),
-      headers: {"content-type":"application/json"}
+      body: formdata,
+     /*  headers: {"content-type":"application/json"} */
     })
     .then(res=>res.json())
     .then(result=>{

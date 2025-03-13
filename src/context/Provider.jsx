@@ -30,24 +30,21 @@ export default function Provider({ children }) {
 
   useEffect(()=>{
     //check the token in localstorage
-    const token = localStorage.getItem("token")
-    if(token){
-      fetch("http://localhost:5000/users/verifytoken",
-      {
-        method:"GET", 
-        headers:{"token":token}
-      })
-      .then(res=>res.json())
-      .then(result=>{
-        if(result.success){
-          setUser(result.data)
-          console.log(result.data)
-        }else{
-          alert(result.message)
-        }
-      })
+  //  const token = localStorage.getItem("token")
+  
+   
+  fetch("http://localhost:5000/users/verifytoken", {method:"GET",credentials:"include"})
+  .then(res=>res.json())
+  .then(result=>{
+    if(result.success){
+      setUser(result.data)
+      console.log(result.data)
+    }else{
+      alert(result.message)
     }
-  },[])
+  })
+
+},[])
 
 
   return (
